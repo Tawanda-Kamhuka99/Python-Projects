@@ -56,8 +56,14 @@ def get_bet():
 def main():
     balance = deposit()
     lines = get_lines()
-    amount = get_bet()
-    total_bet = lines * amount
-    print(f"\nYou are betting ${amount} on {lines} lines. Total bet is: ${total_bet}.)")
+    while True:
+        bet_amount = get_bet()
+        total_bet = lines * bet_amount
+        if total_bet > balance:
+            print(f"\nYou do not have enough funds. Your current balance is ${balance}. Please try again.")
+        else:
+            break
+
+    print(f"\nYou are betting ${bet_amount} on {lines} lines. Total bet is: ${total_bet}.)")
 
 main()
