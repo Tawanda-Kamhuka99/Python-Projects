@@ -1,5 +1,7 @@
 #Set constants 
 MAX_LINES = 3
+MAX_BET = 100
+MIN_BET = 10
 
 #Deposit function which collects user deposit amount
 def deposit():
@@ -8,7 +10,7 @@ def deposit():
         if amount.isdigit():
             amount = int(amount)
             if amount > 10:
-                print(f"\nYou deposited ${amount}.")
+                print(f"\nYour balance is now ${amount}.")
                 break
             else:
                 print("\nPlease enter an amount greater than $10.")
@@ -33,10 +35,29 @@ def get_lines():
     
     return lines
 
+#Function which gets the amount the user wants to bet on each line
+def get_bet():
+    while True:
+        amount = input("\nHow much would you like to bet on each line? $")
+        if amount.isdigit():
+            amount = int(amount)
+            if MIN_BET <= amount <= MAX_BET:
+                print(f"\nYour bet amount is ${amount}.")
+                break
+            else:
+                print(f"\nPlease enter a betting amount between ${MIN_BET} - ${MAX_BET}")
+        else:
+            print("\nPlease enter an amount.")
+    
+    return amount
+
 
 #Create main function 
 def main():
     balance = deposit()
     lines = get_lines()
+    amount = get_bet()
+    total_bet = lines * amount
+    print(f"\nYou are betting ${amount} on {lines} lines. Total bet is: ${total_bet}.)")
 
 main()
