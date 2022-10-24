@@ -19,7 +19,7 @@ symbol_count = {
 }
 
 #Function which generates slot machine outcome
-def get_slot_machine_split(rows, cols, symbols):
+def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
     for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
@@ -38,8 +38,17 @@ def get_slot_machine_split(rows, cols, symbols):
     
     return columns
 
+#Function which prints slot machine results
+def print_slot_machine(columns):
+    for row in range(len(columns[0])):
+        for i, column in enumerate(columns):
+            if i != len(columns) - 1:
+                print(column[row], end=" | ")
+            else:
+                print(column[row], end="")
 
-
+        print()
+    
 
 #Function which collects user deposit amount
 def deposit():
@@ -101,6 +110,9 @@ def main():
         else:
             break
 
-    print(f"\nYou are betting ${bet} on {lines} lines. Total bet is: ${total_bet}.")
+    print(f"\nYou are betting ${bet} on {lines} lines. Total bet is: ${total_bet}.\n")
+
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
 
 main()
