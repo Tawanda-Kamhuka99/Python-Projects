@@ -123,13 +123,13 @@ def get_bet():
     
     return amount
 
-#Main function 
-def main():
-    balance = deposit()
+#Function which allows player to keep playing
+def spin(balance):
     lines = get_lines()
     while True:
         bet = get_bet()
         total_bet = lines * bet
+
         if total_bet > balance:
             print(f"\nYou do not have enough funds for that bet.\n\tRequested bet is: ${total_bet}\n\tYour current balance is ${balance}.\n\tPlease try again.")
         else:
@@ -142,5 +142,20 @@ def main():
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_values)
     print(f"You have won: ${winnings}.")
     print(f"You won on", *winning_lines)
+
+    return winnings - total_bet
+
+#Main function 
+def main():
+    balance = deposit()
+    while True:
+        print(f"Current balance is ${balance}")
+        answer = input("Press enter to spin or q to quit: ")
+        if spin == 'q':
+            break
+        balance += spin()
+
+    print(f"You are left with ${balance}.")
+
 
 main()
