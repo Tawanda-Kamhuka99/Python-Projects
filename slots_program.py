@@ -141,7 +141,7 @@ def spin(balance):
     print_slot_machine(slots)
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_values)
     print(f"\nYou have won: ${winnings}.")
-    print(f"\nYou won on", *winning_lines)
+    print(f"\nYou won on line", *winning_lines)
 
     return winnings - total_bet
 
