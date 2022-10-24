@@ -18,6 +18,31 @@ symbol_count = {
     'D': 4,
 }
 
+#Symbols value per reel
+symbol_values = {
+    'A': 10,
+    'B': 8,
+    'C': 6,
+    'D': 4,
+}
+
+#Function which checks if user won or not
+def check_winnings(columns, lines, bet, values):
+    winnings = 0
+    winning_lines = []
+    for line in range(lines):
+        symbol = columns[0][line]
+        for column in columns:
+            symbol_to_check = column[line] 
+            if symbol != symbol_to_check:
+                break
+            else:
+                winnings += values[symbol] * bet
+                winning_lines.append(line + 1)
+
+    return winnings, winning_lines
+
+
 #Function which generates slot machine outcome
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
@@ -114,5 +139,8 @@ def main():
 
     slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
     print_slot_machine(slots)
+    winnings, winning_lines = check_winnings(slots, lines, bet, symbol_values)
+    print(f"You have won: ${winnings}.")
+    print(f"You won on", *winning_lines)
 
 main()
