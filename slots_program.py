@@ -1,9 +1,47 @@
+#Import random module to randomize slot machine values
+import random
+
 #Set constants 
 MAX_LINES = 3
+
 MAX_BET = 100
 MIN_BET = 10
 
-#Deposit function which collects user deposit amount
+ROWS = 3
+COLS = 3
+
+#Symbols and number of symbols per reel
+symbol_count = {
+    'A': 2,
+    'B': 3,
+    'C': 4,
+    'D': 4,
+}
+
+#Function which generates slot machine outcome
+def get_slot_machine_split(rows, cols, symbols):
+    all_symbols = []
+    for symbol, symbol_count in symbols.items():
+        for _ in range(symbol_count):
+            all_symbols.append(symbol)
+
+    columns = []
+    for _ in range(cols):
+        column = []
+        current_symbols = all_symbols[:]
+        for _ in range(rows):
+            value = random.choice(current_symbols)
+            current_symbols.remove(value)
+            column.append(value)
+        
+        columns.append(column)
+    
+    return columns
+
+
+
+
+#Function which collects user deposit amount
 def deposit():
     while True:
         amount = input("\nPlease enter a deposit amount: $")
@@ -26,7 +64,7 @@ def get_lines():
         if lines.isdigit():
             lines = int(lines)
             if 1 <= lines <= MAX_LINES:
-                print(f"\nYou have chosen {lines} lines.")
+                print(f"\nYou have chosen to bet on {lines} lines.")
                 break
             else:
                 print("\nPlease enter a valid amount of lines.")
@@ -35,6 +73,7 @@ def get_lines():
     
     return lines
 
+
 #Function which gets the amount the user wants to bet on each line
 def get_bet():
     while True:
@@ -42,7 +81,6 @@ def get_bet():
         if amount.isdigit():
             amount = int(amount)
             if MIN_BET <= amount <= MAX_BET:
-                print(f"\nYour bet amount is ${amount}.")
                 break
             else:
                 print(f"\nPlease enter a betting amount between ${MIN_BET} - ${MAX_BET}")
@@ -51,19 +89,18 @@ def get_bet():
     
     return amount
 
-
-#Create main function 
+#Main function 
 def main():
     balance = deposit()
     lines = get_lines()
     while True:
-        bet_amount = get_bet()
-        total_bet = lines * bet_amount
+        bet = get_bet()
+        total_bet = lines * bet
         if total_bet > balance:
-            print(f"\nYou do not have enough funds. Your current balance is ${balance}. Please try again.")
+            print(f"\nYou do not have enough funds for that bet.\n\tRequested bet is: ${total_bet}\n\tYour current balance is ${balance}.\n\tPlease try again.")
         else:
             break
 
-    print(f"\nYou are betting ${bet_amount} on {lines} lines. Total bet is: ${total_bet}.)")
+    print(f"\nYou are betting ${bet} on {lines} lines. Total bet is: ${total_bet}.")
 
 main()
