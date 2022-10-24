@@ -140,8 +140,8 @@ def spin(balance):
     slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
     print_slot_machine(slots)
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_values)
-    print(f"You have won: ${winnings}.")
-    print(f"You won on", *winning_lines)
+    print(f"\nYou have won: ${winnings}.")
+    print(f"\nYou won on", *winning_lines)
 
     return winnings - total_bet
 
@@ -149,13 +149,13 @@ def spin(balance):
 def main():
     balance = deposit()
     while True:
-        print(f"Current balance is ${balance}")
-        answer = input("Press enter to spin or q to quit: ")
+        print(f"\nCurrent balance is ${balance}")
+        answer = input("\nPress enter to spin or q to quit: ")
         if spin == 'q':
             break
-        balance += spin()
+        balance += spin(balance)
 
-    print(f"You are left with ${balance}.")
+    print(f"\nYou are left with ${balance}.")
 
 
 main()
